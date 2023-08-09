@@ -1,0 +1,51 @@
+<header>
+  <h1 class="disabled">Nome do aplicativo: {{ env.appName }}</h1>
+  <small class="disabled">Descrição do aplicativo: {{ env.appDescription }}</small>
+</header>
+
+<aside>
+  <div class="titled">
+    <h2 class="text-title">{{ env.appName }}</h2>
+    <p class="text-subtitle">{{ env.appDescription }}</p>
+  </div>
+
+  <nav>
+    <ul>
+      <li *ngFor="let pages of appPages" routerLink="{{ pages.url }}" routerLinkActive="active">
+        <i class="{{ pages.icon }} icon"></i>
+        <span>{{ pages.title }}</span>
+      </li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <router-outlet></router-outlet>
+
+  <footer>
+    <a href="{{ env.authorUrl}}" target="_blank" title="copyright">
+      &copy; Direitos reservados 2023. Por {{env.author }}.
+    </a>
+  </footer>
+</main>
+
+<div class="overlay" *ngIf="general.loading || general.alert">
+  <div class="loading" *ngIf="general.loading" (click)="general.toggleLoading()">
+    <div id="anim"></div>
+    <p class="text-title">Carregando...</p>
+  </div>
+
+  <div class="alert" *ngIf="general.alert" (click)="general.toggleAlert()">
+    <p class="text-title">Título do alerta</p>
+    <p class="text-subtitle">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem inventore tenetur est numquam ipsa a laborum quas.
+      Repellat vitae corrupti eveniet fugiat ratione earum cumque eaque aliquid. Mollitia, voluptatum, dolore eligendi
+      sapiente in consectetur nemo ullam, quidem impedit eveniet necessitatibus molestiae.
+    </p>
+
+    <div class="buttons">
+      <app-button>Cancelar</app-button>
+      <app-button>Confirmar</app-button>
+    </div>
+  </div>
+</div>
